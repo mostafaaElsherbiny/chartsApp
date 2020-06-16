@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Log;
 use App\Post;
-use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -51,20 +50,25 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-                   views($post)->record();
-       $postview=  views($post)->count();
+
 
         $post->logs()->create([
             'post_id'=>$post->id,
             'user_id'=>Auth::id(),
             'gender'=>Auth::user()->gender,
+            'date'=>date('y-m-d'),
             ]);
+            $post = $post->loadCount('logs')->load(['logs' => function($q) {
+                return $q->orderBy('created_at','desc')->groupby('gender');
+            }]);
+            // dd($post);
 
-        $users = Log::where('gender','female')->get()->count();
-        // $userLogs=$users[0]['logs'];
+            $logmale = Log::select(DB::raw('count(id) as `data`' ),DB::raw('date'))->where('gender','male')->groupby('date')->latest()->get();
+            $logfemale = Log::select(DB::raw('count(id) as `data`' ),DB::raw('date'))->where('gender','female')->groupby('date')->latest()->get();
 
 
-        return view('post',compact(['post','postview','users']));
+
+        return view('post',compact(['post','logmale','logfemale']));
     }
 
     /**
@@ -102,10 +106,6 @@ class PostController extends Controller
     }
 
     public function viewsChart(){
-        $logsMale =DB::table('logs')
-        ->where('gender','=','male')
-        ->orderBy('created_at', 'ASC')
-        ->get();
-        return response()->json($logsMale);
+
     }
 }

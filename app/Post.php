@@ -3,12 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use CyrildeWit\EloquentViewable\Contracts\Viewable;
-use CyrildeWit\EloquentViewable\InteractsWithViews;
 
-class Post extends Model implements Viewable
+class Post extends Model
 {
-    use InteractsWithViews;
 
 
     public function user(){
@@ -18,4 +15,6 @@ class Post extends Model implements Viewable
         return $this->hasMany(Log::class);
     }
 
+
 }
+

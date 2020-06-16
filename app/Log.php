@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Log extends Model
 {
-    protected $fillable=['user_id','post_id','gender'];
+    protected $fillable=['user_id','post_id','gender','date'];
     public function post(){
         return $this->belongsTo(Post::class);
     }

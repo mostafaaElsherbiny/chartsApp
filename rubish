@@ -1,0 +1,19 @@
+// $logsf = Log::select(DB::raw('count(id) as `data`' ),DB::raw('date'))->where('gender','female')->groupby('date')->latest()->get();
+            // $post = $post->loadCount('logs')->load(['logs' => function($q) {
+                // return $q->orderBy('created_at','desc');
+            // }]);
+            //   dd($logs);
+
+            // dd(date('D',$post->created_at->format('d') ));
+
+            // dd(views($post)->period(Period::since('2017-02-20'))->count());
+
+                // var post = @json($post);
+    // var logs=post.logs;
+    // var logsG=_.groupBy(logs,'created_at');
+    // var groups = _.groupBy(logs,'gender');
+    // var male = @json($logsgender);
+// $logs = Log::groupBy('date')->get();
+            // $logsgender = Log::get();
+            // $logsdate = Log::select('date')->groupBy('date')->get();
+            // $logsss = Log::select('gender')->whereIn('date',$logsdate)->get();
