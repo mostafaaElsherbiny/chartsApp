@@ -58,17 +58,16 @@ class PostController extends Controller
             'gender'=>Auth::user()->gender,
             'date'=>date('y-m-d'),
             ]);
-            $post = $post->loadCount('logs')->load(['logs' => function($q) {
-                return $q->orderBy('created_at','desc')->groupby('gender');
-            }]);
+            $post->loadCount('logs');
+            $post->logs = $post->logs()->get()->groupBy(['gender']);
+
             // dd($post);
-
-            $logmale = Log::select(DB::raw('count(id) as `data`' ),DB::raw('date'))->where('gender','male')->groupby('date')->latest()->get();
-            $logfemale = Log::select(DB::raw('count(id) as `data`' ),DB::raw('date'))->where('gender','female')->groupby('date')->latest()->get();
-
+            // $logmale = Log::select(DB::raw('count(id) as `data`' ),DB::raw('date'))->where('gender','male')->groupby('date')->latest()->get();
+            // $logfemale = Log::select(DB::raw('count(id) as `data`' ),DB::raw('date'))->where('gender','female')->groupby('date')->latest()->get();
 
 
-        return view('post',compact(['post','logmale','logfemale']));
+
+        return view('post',compact(['post']));
     }
 
     /**

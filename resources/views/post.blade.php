@@ -36,10 +36,11 @@
 <script src="https://www.chartjs.org/dist/2.9.3/Chart.min.js"></script>
 <script src="https://www.chartjs.org/samples/latest/utils.js"></script>
 <script>
-    var males = @json($logmale);
     var posts = @json($post);
-console.log(posts)
-    var Days =@json($logmale);
+    
+
+    var Days =@json($post);
+
     daysArr= Days.map(element=>{
        return element['date']
    });
@@ -82,69 +83,19 @@ console.log(posts)
         }
 			}
 		};
-
-
-
-		var colorNames = Object.keys(window.chartColors);
-
-</script>
-/////////////// female graph
-<script>
-    var females = @json($logfemale);
-
-    var Days =@json($logfemale);
-    daysArr= Days.map(element=>{
-       return element['date']
-   });
-
-   femaleArr= females.map(element=>{
-       return element['data'];
-   });
-	    var config2 = {
-			type: 'bar',
-			data: {
-				labels: daysArr,
-				datasets: [{
-					label: 'Female',
-					backgroundColor: window.chartColors.blue,
-					borderColor: window.chartColors.blue,
-					data: femaleArr,
-					fill: false,
-				}]
-			},
-			options: {
-				responsive: true,
-				title: {
-					display: true,
-					text: 'Views graph'
-				},
-				tooltips: {
-					mode: 'index',
-					intersect: false,
-				},
-				hover: {
-					mode: 'nearest',
-					intersect: true
-				},
-				scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
-        }
-			}
-		};
-
-		window.onload = function() {
+        window.onload = function() {
 			var ctx1 = document.getElementById('canvas').getContext('2d');
 			window.myLine = new Chart(ctx1, config1);
 
-			var ctx2 = document.getElementById('canvas2').getContext('2d');
-			window.myLine = new Chart(ctx2, config2);
+
 		};
 
 
 		var colorNames = Object.keys(window.chartColors);
 
+
+
+
 </script>
+
+
